@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable{
 	
@@ -12,6 +13,8 @@ public class Game extends Canvas implements Runnable{
 	public static final int HEIGHT = 539, WIDTH = 541;
 	private boolean running = false;
 	private Thread thread;
+	
+	private Random r;
 	
 	private Handler handler;
 	private HUD hud;
@@ -25,8 +28,10 @@ public class Game extends Canvas implements Runnable{
 		
 		hud = new HUD();
 		
+		r = new Random();
+		
 		handler.addObject(new Player(0, 0, ID.Player, handler));
-		handler.addObject(new Food(50, 50, ID.Food));
+		handler.addObject(new Food(r.nextInt(WIDTH - 25)%25 * 25, r.nextInt(HEIGHT - 25)%25 * 25, ID.Food));
 	}
 	
 	public synchronized void start() {

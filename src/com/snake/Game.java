@@ -16,10 +16,6 @@ public class Game extends Canvas implements Runnable{
 	private Handler handler;
 	private HUD hud;
 	
-	private void test() {
-		
-	}
-	
 	public Game() {	
 		handler = new Handler();
 		

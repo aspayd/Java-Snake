@@ -10,6 +10,8 @@ import java.util.Random;
 public class Player extends GameObject{
 	
 	ArrayList<Point> tail = new ArrayList<Point>();
+	public boolean gameOver = false;
+	private int total = 0;
 	
 	public static final int width = 25;
 	public static final int height= 25;
@@ -40,6 +42,19 @@ public class Player extends GameObject{
 		x = Game.clamp(x, 0, Game.WIDTH - 41);
 		y = Game.clamp(y, 0,  Game.HEIGHT - 64);
 		
+		
+		if(tail.size() != 0) {
+			if(tail.size() == total) {
+				for(int i = 0; i < tail.size() - 1; i++) {
+					tail.add(i, tail.get(i + 1));
+					tail.remove(i);
+				}
+				tail.add(tail.size(), new Point((int)x, (int)y));
+				tail.remove(0);
+				
+			}
+		}
+		
 		collision();
 	}
 
@@ -50,6 +65,7 @@ public class Player extends GameObject{
 		g.fillRect((int)x, (int)y, width, height);
 		
 		for(Point p: tail) {
+			g.setColor(Color.green);
 			g.fillRect(p.x, p.y, 25, 25);
 		}
 	}
@@ -70,7 +86,13 @@ public class Player extends GameObject{
 					handler.addObject(new Food((float)r.nextInt(Game.WIDTH-25)%25 * 25, (float)r.nextInt(Game.HEIGHT-25)%25 * 25, ID.Food));
 					HUD.score++;
 					//Add length to the snake
+					total++;
 					addTail();
+					
+					//Add second tail to give player proper length
+//					if(HUD.score == 1) {
+//						addTail();
+//					}
 					
 				}
 			}
@@ -78,7 +100,10 @@ public class Player extends GameObject{
 	}
 	
 	private void addTail() {
-		tail.add(new Point((int)x, (int)y));
+		if(total != 0)
+			tail.add(new Point((int)x - ((int)velX/25 * 25), (int)y - ((int)velY/25 * 25)));
+		else
+			tail.add(new Point((int)x, (int)y));
 	}
 	
 }

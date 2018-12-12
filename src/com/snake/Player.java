@@ -49,9 +49,8 @@ public class Player extends GameObject{
 					tail.add(i, tail.get(i + 1));
 					tail.remove(i);
 				}
-				tail.add(tail.size(), new Point((int)x, (int)y));
+				tail.add(tail.size(), new Point((int)x - (int)velX, (int)y - (int)velY));
 				tail.remove(0);
-				
 			}
 		}
 		
@@ -65,7 +64,7 @@ public class Player extends GameObject{
 		g.fillRect((int)x, (int)y, width, height);
 		
 		for(Point p: tail) {
-			g.setColor(Color.green);
+			g.setColor(Color.orange);
 			g.fillRect(p.x, p.y, 25, 25);
 		}
 	}
@@ -101,7 +100,7 @@ public class Player extends GameObject{
 	
 	private void addTail() {
 		if(total != 0)
-			tail.add(new Point((int)x - ((int)velX/25 * 25), (int)y - ((int)velY/25 * 25)));
+			tail.add(new Point((int)x - (int)velX, (int)y - (int)velY));
 		else
 			tail.add(new Point((int)x, (int)y));
 	}

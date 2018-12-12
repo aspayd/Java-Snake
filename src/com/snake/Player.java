@@ -87,12 +87,6 @@ public class Player extends GameObject{
 					//Add length to the snake
 					total++;
 					addTail();
-					
-					//Add second tail to give player proper length
-//					if(HUD.score == 1) {
-//						addTail();
-//					}
-					
 				}
 			}
 		}

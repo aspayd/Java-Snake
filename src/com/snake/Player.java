@@ -21,12 +21,15 @@ public class Player extends GameObject{
 	
 	private Random r;
 	
-	public Player(float x, float y, ID id, Handler handler) {
+	private Game game;
+	
+	public Player(float x, float y, ID id, Handler handler, Game game) {
 		super(x, y, id);
 		this.handler = handler;
 		this.x = x;
 		this.y = y;
 		this.id = id;
+		this.game = game;
 		
 		r = new Random();
 		
@@ -53,7 +56,7 @@ public class Player extends GameObject{
 				tail.remove(0);
 			}
 		}
-		
+		test_GameOver();
 		collision();
 	}
 
@@ -97,6 +100,18 @@ public class Player extends GameObject{
 			tail.add(new Point((int)x - (int)velX, (int)y - (int)velY));
 		else
 			tail.add(new Point((int)x, (int)y));
+	}
+	
+	private void test_GameOver() {
+		for(int i = 0; i < tail.size(); i++) {
+			if((tail.get(i).x == (int)x) && (tail.get(i).y == (int)y)) {
+				gameOver = true;
+				game.running = false;
+				System.out.println("Game Over");
+			} else{
+				gameOver = false;
+			}
+		}
 	}
 	
 }

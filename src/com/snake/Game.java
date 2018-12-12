@@ -11,7 +11,7 @@ public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = -2931033240563787969L;
 	
 	public static final int HEIGHT = 539, WIDTH = 541;
-	private boolean running = false;
+	public boolean running = false;
 	private Thread thread;
 	
 	private Random r;
@@ -30,7 +30,7 @@ public class Game extends Canvas implements Runnable{
 		
 		r = new Random();
 		
-		handler.addObject(new Player(0, 0, ID.Player, handler));
+		handler.addObject(new Player(0, 0, ID.Player, handler, this));
 		handler.addObject(new Food(r.nextInt(WIDTH - 25)%25 * 25, r.nextInt(HEIGHT - 25)%25 * 25, ID.Food));
 	}
 	
